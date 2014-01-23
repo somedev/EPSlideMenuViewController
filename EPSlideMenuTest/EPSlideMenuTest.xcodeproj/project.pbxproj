@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		642A218518919D1500310D9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 642A218418919D1500310D9F /* Main.storyboard */; };
+		642A218B1891A47B00310D9F /* EPSlideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 642A218A1891A47B00310D9F /* EPSlideMenuViewController.m */; };
 		C9F02446EEA312C43A797BF5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F10772859BCD32F630C89B /* Foundation.framework */; };
 		C9F0E60AABFD11D305092BEC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F10772859BCD32F630C89B /* Foundation.framework */; };
 		C9F21B96863BCBBAE9C4939E /* EPSlideMenuTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB2C8E398BE624B1AC50A0 /* EPSlideMenuTestTests.m */; };
@@ -17,7 +18,6 @@
 		C9F50A43C54DE86F58C45926 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9F4D17ECAC8F882F63AEFA1 /* Images.xcassets */; };
 		C9F86C049EE70F8F5D943E21 /* LeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F22847F6E82227D576B47E /* LeftViewController.m */; };
 		C9F955503DA99EF891E1E593 /* EPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FC1A50FCCB486E2F079FF6 /* EPAppDelegate.m */; };
-		C9F9F7C5CBA84F9495256954 /* EPSlideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FDA30E98DF36148F104E8B /* EPSlideMenuViewController.m */; };
 		C9FB24F4C5F196D3CD067CD2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9FE76F80AE02F694A95F382 /* InfoPlist.strings */; };
 		C9FCA5ED92E7394A3C228F97 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F89E7ECDA4A02922ACA3D1 /* CoreGraphics.framework */; };
 		C9FCC82271F391525EA11D74 /* CenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FEAF615CD09C56B7323C57 /* CenterViewController.m */; };
@@ -38,6 +38,8 @@
 
 /* Begin PBXFileReference section */
 		642A218418919D1500310D9F /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		642A21891891A47100310D9F /* EPSlideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPSlideMenuViewController.h; path = ../../EPSlideMenuController/EPSlideMenuViewController.h; sourceTree = "<group>"; };
+		642A218A1891A47B00310D9F /* EPSlideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPSlideMenuViewController.m; path = ../../EPSlideMenuController/EPSlideMenuViewController.m; sourceTree = "<group>"; };
 		C9F10772859BCD32F630C89B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C9F22847F6E82227D576B47E /* LeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftViewController.m; sourceTree = "<group>"; };
 		C9F33C39375D6B4119AA58F6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -51,13 +53,11 @@
 		C9F74E8673B9EC5E322305FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C9F857309701DD104E23504A /* LeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftViewController.h; sourceTree = "<group>"; };
 		C9F89E7ECDA4A02922ACA3D1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		C9FA3A62C4A8534680987941 /* EPSlideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPSlideMenuViewController.h; sourceTree = "<group>"; };
 		C9FA8581E2CABE16DFDF1150 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C9FB2C8E398BE624B1AC50A0 /* EPSlideMenuTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EPSlideMenuTestTests.m; sourceTree = "<group>"; };
 		C9FBE8B6B96C5F90AC6D8738 /* EPSlideMenuTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EPSlideMenuTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9FBF5AFB467344997763827 /* EPSlideMenuTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EPSlideMenuTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9FC1A50FCCB486E2F079FF6 /* EPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EPAppDelegate.m; sourceTree = "<group>"; };
-		C9FDA30E98DF36148F104E8B /* EPSlideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPSlideMenuViewController.m; sourceTree = "<group>"; };
 		C9FDA4E472D6F862EDAF80DF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C9FEAF615CD09C56B7323C57 /* CenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterViewController.m; sourceTree = "<group>"; };
 		C9FEE47A3DC5CAD40A52BEC8 /* EPSlideMenuTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "EPSlideMenuTest-Info.plist"; sourceTree = "<group>"; };
@@ -163,8 +163,8 @@
 		C9FCBC78EDD890F11E0AF44C /* EPSlideMenuController */ = {
 			isa = PBXGroup;
 			children = (
-				C9FA3A62C4A8534680987941 /* EPSlideMenuViewController.h */,
-				C9FDA30E98DF36148F104E8B /* EPSlideMenuViewController.m */,
+				642A218A1891A47B00310D9F /* EPSlideMenuViewController.m */,
+				642A21891891A47100310D9F /* EPSlideMenuViewController.h */,
 			);
 			path = EPSlideMenuController;
 			sourceTree = "<group>";
@@ -292,9 +292,9 @@
 			files = (
 				C9F49CA908DA93DE7F4BDECB /* main.m in Sources */,
 				C9F955503DA99EF891E1E593 /* EPAppDelegate.m in Sources */,
-				C9F9F7C5CBA84F9495256954 /* EPSlideMenuViewController.m in Sources */,
 				C9F86C049EE70F8F5D943E21 /* LeftViewController.m in Sources */,
 				C9F2AE6C8CDAC6A941689014 /* RightViewController.m in Sources */,
+				642A218B1891A47B00310D9F /* EPSlideMenuViewController.m in Sources */,
 				C9FCC82271F391525EA11D74 /* CenterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,6 +361,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../EPSlideMenuController",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -407,6 +412,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../EPSlideMenuController",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
