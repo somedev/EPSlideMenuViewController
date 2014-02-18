@@ -35,7 +35,8 @@
 
 typedef NS_ENUM(NSInteger, EPSlideMenuAnimationstyle) {
     EPSlideMenuAnimationstyleDefault,
-    EPSlideMenuAnimationstyleParalax
+    EPSlideMenuAnimationstyleParalax,
+    EPSlideMenuAnimationstyleSlide
 };
 
 typedef NS_ENUM(NSInteger, EPSlideMenuState) {

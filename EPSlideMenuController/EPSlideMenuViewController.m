@@ -207,6 +207,9 @@ static CGFloat const kSlideMenuParallax=0.15f;
             if(self.slideAnimationStyle==EPSlideMenuAnimationstyleParalax){
                 constant=-self.view.frame.size.width*kSlideMenuParallax;
             }
+            else if(self.slideAnimationStyle==EPSlideMenuAnimationstyleSlide){
+                constant=-self.view.frame.size.width;
+            }
             break;
         case EPSlideMenuStateLeftOpened:
             constant=self.view.frame.origin.x;
@@ -224,6 +227,9 @@ static CGFloat const kSlideMenuParallax=0.15f;
         case EPSlideMenuStateClosed:
             if(self.slideAnimationStyle==EPSlideMenuAnimationstyleParalax){
                 constant=self.view.frame.size.width*kSlideMenuParallax;
+            }
+            else if(self.slideAnimationStyle==EPSlideMenuAnimationstyleSlide){
+                constant=self.view.frame.size.width;
             }
             break;
         case EPSlideMenuStateLeftOpened:
