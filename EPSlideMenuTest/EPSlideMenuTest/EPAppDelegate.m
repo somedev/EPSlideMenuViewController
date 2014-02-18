@@ -42,6 +42,7 @@
                                                                                             leftController:leftVC
                                                                                            rightController:rightVC];
     controller.slideAnimationStyle=EPSlideMenuAnimationstyleParalax;
+//    controller.swipeEnabled=NO;
     [self.window setRootViewController:controller];
     [self.window makeKeyAndVisible];
     // Override point for customization after application launch.

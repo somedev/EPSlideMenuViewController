@@ -77,6 +77,7 @@ static CGFloat const kSlideMenuParallax=0.15f;
         self.lastTouchX=-1;
         self.currentState=EPSlideMenuStateClosed;
         self.slideAnimationStyle=EPSlideMenuAnimationstyleDefault;
+        self.swipeEnabled=YES;
     }
     return self;
 }
@@ -368,6 +369,9 @@ static CGFloat const kSlideMenuParallax=0.15f;
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    if(!self.swipeEnabled){
+        return NO;
+    }
     CGPoint selfTouchPoint= [gestureRecognizer locationInView:self.view];
     self.lastTouchX=selfTouchPoint.x;
     return YES;

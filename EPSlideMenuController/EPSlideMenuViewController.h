@@ -52,6 +52,7 @@ typedef NS_ENUM(NSInteger, EPSlideMenuState) {
  @description possible states: 
  -EPSlideMenuAnimationstyleDefault sliding animation
  -EPSlideMenuAnimationstyleParalax paralax animation
+ -EPSlideMenuAnimationstyleSlide menu slides with center controller
 **/
 @property (nonatomic, assign) EPSlideMenuAnimationstyle slideAnimationStyle;
 
@@ -76,6 +77,11 @@ Left menu view controller
 **/
 @property (nonatomic, readonly) UIViewController *leftViewController;
 
+/**
+Enable/disable swipe gesture to slide menu
+default value: YES
+**/
+@property (nonatomic, assign) BOOL swipeEnabled;
 
 - (instancetype)initWithCenterViewController:(UIViewController *)centerController
                               leftController:(UIViewController *)leftController
