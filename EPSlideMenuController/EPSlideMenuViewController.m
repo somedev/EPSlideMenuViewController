@@ -32,6 +32,7 @@ static CGFloat const kSlideMenuOpenMenuWidthMultiplier =0.8f;
 static CGFloat const kSlideMenuClosedMenuWidthMultiplier =0.f;
 static CGFloat const kSlideMenuAnimationDuration=0.3f;
 static CGFloat const kSlideMenuParallax=0.15f;
+static CGFloat const kActiveCornerTouchWidthPx =30.0f;
 
 @implementation UIViewController(EPSlideMenuViewControllerExtentions)
 - (EPSlideMenuViewController*)rootMenuController{
@@ -77,7 +78,7 @@ static CGFloat const kSlideMenuParallax=0.15f;
         self.lastTouchX=-1;
         self.currentState=EPSlideMenuStateClosed;
         self.slideAnimationStyle=EPSlideMenuAnimationstyleDefault;
-        self.swipeEnabled=YES;
+        self.swipeBehavior = EPSlideMenuSwipeBehaviorEnabled;
     }
     return self;
 }
@@ -369,8 +370,22 @@ static CGFloat const kSlideMenuParallax=0.15f;
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
-    if(!self.swipeEnabled){
-        return NO;
+    CGPoint centerViewTouchPoint= [gestureRecognizer locationInView:self.centerViewController.view];
+    switch (self.swipeBehavior){
+        case EPSlideMenuSwipeBehaviorEnabled:
+            break;
+        case EPSlideMenuSwipeBehaviorDisabled:
+            return NO;
+        case EPSlideMenuSwipeBehaviorCorner:
+        {
+            if((self.leftViewController && centerViewTouchPoint.x<= kActiveCornerTouchWidthPx) ||
+               (self.rightViewController && centerViewTouchPoint.x>=(self.view.frame.size.width- kActiveCornerTouchWidthPx))){
+                break;
+            }
+            else{
+                return NO;
+            }
+        }
     }
     CGPoint selfTouchPoint= [gestureRecognizer locationInView:self.view];
     self.lastTouchX=selfTouchPoint.x;

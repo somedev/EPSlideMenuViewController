@@ -45,6 +45,12 @@ typedef NS_ENUM(NSInteger, EPSlideMenuState) {
     EPSlideMenuStateRightOpened
 };
 
+typedef NS_ENUM(NSInteger, EPSlideMenuSwipeBehavior) {
+    EPSlideMenuSwipeBehaviorEnabled,
+    EPSlideMenuSwipeBehaviorDisabled,
+    EPSlideMenuSwipeBehaviorCorner
+};
+
 @interface EPSlideMenuViewController : UIViewController
 
 /**
@@ -55,6 +61,15 @@ typedef NS_ENUM(NSInteger, EPSlideMenuState) {
  -EPSlideMenuAnimationstyleSlide menu slides with center controller
 **/
 @property (nonatomic, assign) EPSlideMenuAnimationstyle slideAnimationStyle;
+
+/**
+ Swipe behavior
+ @description possible states:
+ -EPSlideMenuSwipeBehaviorEnabled
+ -EPSlideMenuSwipeBehaviorDisabled
+ -EPSlideMenuSwipeBehaviorCorner swipe enabled only on left or righ corner
+*/
+@property (nonatomic, assign) EPSlideMenuSwipeBehavior swipeBehavior;
 
 @property (nonatomic, assign) CGFloat openMenuSlideWidthMultiplier;
 
@@ -76,12 +91,6 @@ Main center view controller
 Left menu view controller
 **/
 @property (nonatomic, readonly) UIViewController *leftViewController;
-
-/**
-Enable/disable swipe gesture to slide menu
-default value: YES
-**/
-@property (nonatomic, assign) BOOL swipeEnabled;
 
 - (instancetype)initWithCenterViewController:(UIViewController *)centerController
                               leftController:(UIViewController *)leftController
