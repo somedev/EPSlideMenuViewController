@@ -38,11 +38,10 @@
     leftVC=[sb instantiateViewControllerWithIdentifier:@"LeftViewController"];
     centerVC=[sb instantiateViewControllerWithIdentifier:@"CenterViewController"];
     rightVC= [sb instantiateViewControllerWithIdentifier:@"RightViewController"];
-    EPSlideMenuViewController *controller= [[EPSlideMenuViewController alloc] initWithCenterViewController:centerVC
+    UINavigationController *navigationController= [[UINavigationController alloc] initWithRootViewController:centerVC];
+    EPSlideMenuViewController *controller= [[EPSlideMenuViewController alloc] initWithCenterViewController:navigationController
                                                                                             leftController:leftVC
                                                                                            rightController:rightVC];
-    controller.slideAnimationStyle=EPSlideMenuAnimationstyleParalax;
-    controller.swipeBehavior = EPSlideMenuSwipeBehaviorCorner;
     [self.window setRootViewController:controller];
     [self.window makeKeyAndVisible];
     // Override point for customization after application launch.

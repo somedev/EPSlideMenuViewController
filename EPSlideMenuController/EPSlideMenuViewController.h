@@ -35,7 +35,7 @@
 
 typedef NS_ENUM(NSInteger, EPSlideMenuAnimationstyle) {
     EPSlideMenuAnimationstyleDefault,
-    EPSlideMenuAnimationstyleParalax,
+    EPSlideMenuAnimationstyleParallax,
     EPSlideMenuAnimationstyleSlide
 };
 
@@ -57,7 +57,7 @@ typedef NS_ENUM(NSInteger, EPSlideMenuSwipeBehavior) {
  Animation style
  @description possible states: 
  -EPSlideMenuAnimationstyleDefault sliding animation
- -EPSlideMenuAnimationstyleParalax paralax animation
+ -EPSlideMenuAnimationstyleParallax paralax animation
  -EPSlideMenuAnimationstyleSlide menu slides with center controller
 **/
 @property (nonatomic, assign) EPSlideMenuAnimationstyle slideAnimationStyle;

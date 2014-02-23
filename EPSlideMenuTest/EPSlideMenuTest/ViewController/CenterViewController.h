@@ -29,7 +29,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CenterViewController : UIViewController
-- (IBAction)toggleMenu:(id)sender;
-- (IBAction)toggleRight:(id)sender;
 
 @end

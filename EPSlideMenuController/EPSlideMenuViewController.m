@@ -83,6 +83,16 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
     return self;
 }
 
+#pragma mark properties
+- (void)setSlideAnimationStyle:(EPSlideMenuAnimationstyle)slideAnimationStyle {
+    _slideAnimationStyle=slideAnimationStyle;
+    [self updateToMenuState:self.currentState animated:NO];
+}
+
+- (void)setSwipeBehavior:(EPSlideMenuSwipeBehavior)swipeBehavior {
+    _swipeBehavior=swipeBehavior;
+    [self updateToMenuState:self.currentState animated:NO];
+}
 
 #pragma mark UIViewController stuff
 
@@ -206,7 +216,7 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
     CGFloat constant=0;
     switch (state) {
         case EPSlideMenuStateClosed:
-            if(self.slideAnimationStyle==EPSlideMenuAnimationstyleParalax){
+            if(self.slideAnimationStyle== EPSlideMenuAnimationstyleParallax){
                 constant=-self.view.frame.size.width*kSlideMenuParallax;
             }
             else if(self.slideAnimationStyle==EPSlideMenuAnimationstyleSlide){
@@ -227,7 +237,7 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
     CGFloat constant=0;
     switch (state) {
         case EPSlideMenuStateClosed:
-            if(self.slideAnimationStyle==EPSlideMenuAnimationstyleParalax){
+            if(self.slideAnimationStyle== EPSlideMenuAnimationstyleParallax){
                 constant=self.view.frame.size.width*kSlideMenuParallax;
             }
             else if(self.slideAnimationStyle==EPSlideMenuAnimationstyleSlide){
