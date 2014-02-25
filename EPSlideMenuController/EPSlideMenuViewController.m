@@ -295,6 +295,21 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
                    animated:animated];
 }
 
+- (void)openLeftMenuAnimated:(BOOL)animated {
+    [self updateToMenuState:EPSlideMenuStateLeftOpened
+                   animated:animated];
+}
+
+- (void)openRightMenuAnimated:(BOOL)animated {
+    [self updateToMenuState:EPSlideMenuStateRightOpened
+                   animated:animated];
+}
+
+- (void)closeMenuAnimated:(BOOL)animated {
+    [self updateToMenuState:EPSlideMenuStateClosed
+                   animated:animated];
+}
+
 - (void)updateFramesAfterMoveLeft:(BOOL)leftMove {
     CGFloat closedCenterConst= [self centerViewConstantForState:EPSlideMenuStateClosed];
     CGFloat openedCenterConst= [self centerViewConstantForState:EPSlideMenuStateLeftOpened];

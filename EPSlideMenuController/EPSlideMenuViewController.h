@@ -107,9 +107,27 @@ Left menu view controller
 - (void)toggleLeftMenuAnimated:(BOOL)animated;
 
 /**
+ Open left menu
+ @param animated toggle animated
+*/
+- (void)openLeftMenuAnimated:(BOOL)animated;
+
+/**
  Toggle right menu opened state
  @param animated toggle animated
 */
 - (void)toggleRightMenuAnimated:(BOOL)animated;
+
+/**
+ Open right menu
+ @param animated toggle animated
+*/
+- (void)openRightMenuAnimated:(BOOL)animated;
+
+/**
+ Close  menu
+ @param animated toggle animated
+*/
+- (void)closeMenuAnimated:(BOOL)animated;
 
 @end
