@@ -123,6 +123,7 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
     [self.leftViewController.view layoutIfNeeded];
     [self.centerViewController.view layoutIfNeeded];
     [self.rightViewController.view layoutIfNeeded];
+    [self.view layOutIfNeeded]
 }
 
 #pragma mark support
