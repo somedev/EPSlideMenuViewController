@@ -71,11 +71,22 @@ typedef NS_ENUM(NSInteger, EPSlideMenuSwipeBehavior) {
 */
 @property (nonatomic, assign) EPSlideMenuSwipeBehavior swipeBehavior;
 
+/**
+ Multiplier to calculate centerViewController's view x origin for opemed state
+ for example for left opened menu state:
+ centerViewController.view.frame.origin.x=openMenuSlideWidthMultiplier*centerViewController.view.frame.size.width;
+*/
 @property (nonatomic, assign) CGFloat openMenuSlideWidthMultiplier;
 
-@property (nonatomic, assign) CGFloat closedMenuSlideWidthMultiplier;
-
+/**
+ Current menu state
+**/
 @property (nonatomic, assign) EPSlideMenuState currentState;
+
+/**
+ Apply shadow to center view
+**/
+@property (nonatomic, assign) BOOL showShadow;
 
 /**
 Main right view controller
@@ -96,9 +107,6 @@ Left menu view controller
                               leftController:(UIViewController *)leftController
                              rightController:(UIViewController *)rightController;
 
-
-- (void)updateToMenuState:(EPSlideMenuState)state
-                 animated:(BOOL)animated;
 
 /**
  Toggle left menu opened state

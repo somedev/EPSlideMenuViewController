@@ -57,6 +57,9 @@
                                                                target:self
                                                                action:@selector(toggleRight)];
     self.navigationItem.rightBarButtonItem=rightItem;
+
+    //remove separators for empty cells
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (void)didReceiveMemoryWarning
@@ -102,20 +105,23 @@
 #pragma mark UITableViewDataSource
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if(section==0){
-        return @" Animation style";
+        return @"Animation style";
     }
     else if(section==1){
-        return @" Swipe behavior";
+        return @"Swipe behavior";
+    }
+    else if (section == 2) {
+        return @"Shadow";
     }
     else return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return section == 2 ? 1 : 3;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -152,7 +158,7 @@
                 break;
         }
     }
-    else{
+    else if (indexPath.section == 1) {
         switch(indexPath.row){
             case EPSlideMenuSwipeBehaviorEnabled:
                 cell.textLabel.text=@"Enabled";
@@ -176,6 +182,12 @@
                 break;
         }
     }
+    else if (indexPath.section == 2) {
+        cell.textLabel.text = rootMenuController.showShadow ? @"Shown" : @"Hidden";
+        cell.detailTextLabel.text = @"show shadow";
+        cell.accessoryType = (rootMenuController.showShadow) ?
+                UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    }
 
     return cell;
 }
@@ -198,7 +210,7 @@
                 break;
         }
     }
-    else{
+    else if (indexPath.section == 1) {
         switch(indexPath.row){
             case EPSlideMenuSwipeBehaviorEnabled:
                 rootMenuController.swipeBehavior=EPSlideMenuSwipeBehaviorEnabled;
@@ -212,6 +224,9 @@
             default:
                 break;
         }
+    }
+    else if (indexPath.section == 2) {
+        rootMenuController.showShadow = !rootMenuController.showShadow;
     }
     [self.tableView reloadData];
 }

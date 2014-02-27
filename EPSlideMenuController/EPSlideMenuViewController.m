@@ -29,7 +29,6 @@
 #import "EPSlideMenuViewController.h"
 
 static CGFloat const kSlideMenuOpenMenuWidthMultiplier =0.8f;
-static CGFloat const kSlideMenuClosedMenuWidthMultiplier =0.f;
 static CGFloat const kSlideMenuAnimationDuration=0.3f;
 static CGFloat const kSlideMenuParallax=0.15f;
 static CGFloat const kActiveCornerTouchWidthPx =30.0f;
@@ -55,9 +54,12 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
 @property (nonatomic, strong) NSLayoutConstraint *rightViewConstraintX;
 @property (nonatomic, strong) NSLayoutConstraint *centerViewConstraintX;
 
+//@property (nonatomic, assign) CGFloat openMenuSlideWidthMultiplier;
+
 - (CGFloat)centerViewConstantForState:(EPSlideMenuState)state;
 - (CGFloat)leftMenuViewConstantForState:(EPSlideMenuState)state;
-
+- (void)updateToMenuState:(EPSlideMenuState)state
+                 animated:(BOOL)animated;
 
 @end
 
@@ -74,7 +76,6 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
         self.leftViewController = leftController;
         self.rightViewController=rightController;
         self.openMenuSlideWidthMultiplier = kSlideMenuOpenMenuWidthMultiplier;
-        self.closedMenuSlideWidthMultiplier = kSlideMenuClosedMenuWidthMultiplier;
         self.lastTouchX=-1;
         self.currentState=EPSlideMenuStateClosed;
         self.slideAnimationStyle=EPSlideMenuAnimationstyleDefault;
@@ -115,6 +116,8 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
     panner.delegate = self;
 
     [self.centerViewController.view addGestureRecognizer:panner];
+
+    self.showShadow=YES;
 
 }
 
@@ -176,6 +179,13 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
 }
 
 #pragma mark properties
+- (void)setShowShadow:(BOOL)showShadow {
+    _showShadow=showShadow;
+    self.centerViewController.view.layer.shadowPath=showShadow?[[UIBezierPath
+            bezierPathWithRect:self.centerViewController.view.bounds] CGPath]:0;
+    self.centerViewController.view.layer.shadowOpacity = showShadow?0.5f:0.0f;
+}
+
 - (void)setOpenMenuSlideWidthMultiplier:(CGFloat)openMenuSlideWidthMultiplier {
     if (openMenuSlideWidthMultiplier >1.f) {
         openMenuSlideWidthMultiplier =1.f;
@@ -186,22 +196,12 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
     _openMenuSlideWidthMultiplier = openMenuSlideWidthMultiplier;
 }
 
-- (void)setClosedMenuSlideWidthMultiplier:(CGFloat)closedMenuSlideWidthMultiplier {
-    if (closedMenuSlideWidthMultiplier >1.f) {
-        closedMenuSlideWidthMultiplier =1.f;
-    }
-    else if (closedMenuSlideWidthMultiplier <0.f){
-        closedMenuSlideWidthMultiplier =0.f;
-    }
-    _closedMenuSlideWidthMultiplier = closedMenuSlideWidthMultiplier;
-}
-
 #pragma mark frame calculations
 - (CGFloat)centerViewConstantForState:(EPSlideMenuState)state{
     CGFloat constant=self.centerViewConstraintX.constant;
     switch (state) {
         case EPSlideMenuStateClosed:
-            constant=self.view.frame.size.width*self.closedMenuSlideWidthMultiplier;
+            constant=0;
             break;
         case EPSlideMenuStateLeftOpened:
             constant=self.view.frame.size.width*self.openMenuSlideWidthMultiplier;
