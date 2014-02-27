@@ -123,7 +123,7 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
     [self.leftViewController.view layoutIfNeeded];
     [self.centerViewController.view layoutIfNeeded];
     [self.rightViewController.view layoutIfNeeded];
-    [self.view layOutIfNeeded]
+    [self.view layoutIfNeeded];
 }
 
 #pragma mark support
@@ -261,6 +261,7 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
 }
 #pragma mark menu toggle actions
 - (void)updateToMenuState:(EPSlideMenuState)state animated:(BOOL)animated{
+    [self.view layoutIfNeeded];
     if(!self.rightViewController && state==EPSlideMenuStateRightOpened)
         return;
     if(!self.leftViewController && state==EPSlideMenuStateLeftOpened)
@@ -274,6 +275,7 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
     if(self.centerViewController){
         self.centerViewConstraintX.constant= [self centerViewConstantForState:state];
     }
+
     [UIView animateWithDuration:animated ? kSlideMenuAnimationDuration:0.f
                           delay:0.f
                         options:UIViewAnimationOptionCurveEaseOut
