@@ -221,7 +221,7 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
                 constant=-self.view.frame.size.width*kSlideMenuParallax;
             }
             else if(self.slideAnimationStyle==EPSlideMenuAnimationstyleSlide){
-                constant=-self.view.frame.size.width;
+                constant=-self.view.frame.size.width*self.openMenuSlideWidthMultiplier;
             }
             break;
         case EPSlideMenuStateLeftOpened:
@@ -242,7 +242,7 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
                 constant=self.view.frame.size.width*kSlideMenuParallax;
             }
             else if(self.slideAnimationStyle==EPSlideMenuAnimationstyleSlide){
-                constant=self.view.frame.size.width;
+                constant=self.view.frame.size.width*self.openMenuSlideWidthMultiplier;
             }
             break;
         case EPSlideMenuStateLeftOpened:
