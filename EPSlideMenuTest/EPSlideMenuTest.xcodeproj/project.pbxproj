@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		642A218518919D1500310D9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 642A218418919D1500310D9F /* Main.storyboard */; };
-		642A218B1891A47B00310D9F /* EPSlideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 642A218A1891A47B00310D9F /* EPSlideMenuViewController.m */; };
+		642A218B1891A47B00310D9F /* EPSlideMenuViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 642A218A1891A47B00310D9F /* EPSlideMenuViewController.h */; };
 		C9F02446EEA312C43A797BF5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F10772859BCD32F630C89B /* Foundation.framework */; };
 		C9F0E60AABFD11D305092BEC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F10772859BCD32F630C89B /* Foundation.framework */; };
 		C9F21B96863BCBBAE9C4939E /* EPSlideMenuTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB2C8E398BE624B1AC50A0 /* EPSlideMenuTestTests.m */; };
@@ -38,8 +38,8 @@
 
 /* Begin PBXFileReference section */
 		642A218418919D1500310D9F /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		642A21891891A47100310D9F /* EPSlideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPSlideMenuViewController.h; path = ../../EPSlideMenuController/EPSlideMenuViewController.h; sourceTree = "<group>"; };
-		642A218A1891A47B00310D9F /* EPSlideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPSlideMenuViewController.m; path = ../../EPSlideMenuController/EPSlideMenuViewController.m; sourceTree = "<group>"; };
+		642A21891891A47100310D9F /* EPSlideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPSlideMenuViewController.m; path = ../EPSlideMenuController/EPSlideMenuViewController.m; sourceTree = "<group>"; };
+		642A218A1891A47B00310D9F /* EPSlideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPSlideMenuViewController.h; path = ../EPSlideMenuController/EPSlideMenuViewController.h; sourceTree = "<group>"; };
 		C9F10772859BCD32F630C89B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C9F22847F6E82227D576B47E /* LeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftViewController.m; sourceTree = "<group>"; };
 		C9F33C39375D6B4119AA58F6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -163,8 +163,8 @@
 		C9FCBC78EDD890F11E0AF44C /* EPSlideMenuController */ = {
 			isa = PBXGroup;
 			children = (
-				642A218A1891A47B00310D9F /* EPSlideMenuViewController.m */,
-				642A21891891A47100310D9F /* EPSlideMenuViewController.h */,
+				642A218A1891A47B00310D9F /* EPSlideMenuViewController.h */,
+				642A21891891A47100310D9F /* EPSlideMenuViewController.m */,
 			);
 			path = EPSlideMenuController;
 			sourceTree = "<group>";
@@ -294,7 +294,7 @@
 				C9F955503DA99EF891E1E593 /* EPAppDelegate.m in Sources */,
 				C9F86C049EE70F8F5D943E21 /* LeftViewController.m in Sources */,
 				C9F2AE6C8CDAC6A941689014 /* RightViewController.m in Sources */,
-				642A218B1891A47B00310D9F /* EPSlideMenuViewController.m in Sources */,
+				642A218B1891A47B00310D9F /* EPSlideMenuViewController.h in Sources */,
 				C9FCC82271F391525EA11D74 /* CenterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
