@@ -28,36 +28,28 @@
 #import "CenterViewController.h"
 #import "EPSlideMenuViewController.h"
 
-@interface CenterViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface CenterViewController()<UITableViewDelegate, UITableViewDataSource>
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
 @implementation CenterViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIBarButtonItem *leftItem= [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"]
-                                                                style:UIBarButtonItemStylePlain
-                                                               target:self
-                                                               action:@selector(toggleLeft)];
-    self.navigationItem.leftBarButtonItem=leftItem;
-    UIBarButtonItem *rightItem= [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"]
-                                                                style:UIBarButtonItemStylePlain
-                                                               target:self
-                                                               action:@selector(toggleRight)];
-    self.navigationItem.rightBarButtonItem=rightItem;
-
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"]
+                                                                 style:UIBarButtonItemStylePlain
+                                                                target:self
+                                                                action:@selector(toggleLeft)];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"]
+                                                                  style:UIBarButtonItemStylePlain
+                                                                 target:self
+                                                                 action:@selector(toggleRight)];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    
     //remove separators for empty cells
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
@@ -71,18 +63,21 @@
 
 
 
-- (void)toggleLeft {
-    EPSlideMenuViewController* controller=[self rootController];
+- (void)toggleLeft
+{
+    EPSlideMenuViewController* controller = [self rootController];
     [controller toggleLeftMenuAnimated:YES];
 }
 
-- (void)toggleRight {
-    EPSlideMenuViewController* controller=[self rootController];
+- (void)toggleRight
+{
+    EPSlideMenuViewController* controller = [self rootController];
     [controller toggleRightMenuAnimated:YES];
 }
 
 #pragma mark get cuttent rootMenuController
-- (EPSlideMenuViewController *)rootController{
+- (EPSlideMenuViewController *)rootController
+{
     if(self.rootMenuController){
         return self.rootMenuController;
     }
@@ -90,11 +85,8 @@
 }
 
 #pragma mark Orientations
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
-
-}
-
-- (NSUInteger)supportedInterfaceOrientations{
+- (NSUInteger)supportedInterfaceOrientations
+{
     return UIInterfaceOrientationMaskAll;
 }
 
@@ -103,11 +95,12 @@
 }
 
 #pragma mark UITableViewDataSource
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    if(section==0){
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if(section == 0){
         return @"Animation style";
     }
-    else if(section==1){
+    else if(section == 1){
         return @"Swipe behavior";
     }
     else if (section == 2) {
@@ -116,7 +109,8 @@
     else return nil;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return section == 2 ? 1 : 3;
 }
 
@@ -124,35 +118,36 @@
     return 3;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *cellID=@"CellReusableID";
-
-    UITableViewCell *cell= [self.tableView dequeueReusableCellWithIdentifier:cellID];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *cellID = @"CellReusableID";
+    
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellID];
     if(!cell){
-        cell= [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                     reuseIdentifier:cellID];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                      reuseIdentifier:cellID];
     }
-    EPSlideMenuViewController *rootMenuController= [self rootController];
-    cell.accessoryType=UITableViewCellAccessoryCheckmark;
-    if(indexPath.section==0){
+    EPSlideMenuViewController *rootMenuController = [self rootController];
+    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    if(indexPath.section == 0){
         switch(indexPath.row){
             case EPSlideMenuAnimationstyleDefault:
-                cell.textLabel.text=@"Default";
-                cell.detailTextLabel.text=@"EPSlideMenuAnimationstyleDefault";
-                cell.accessoryType=(rootMenuController.slideAnimationStyle==EPSlideMenuAnimationstyleDefault)?
-                UITableViewCellAccessoryCheckmark:UITableViewCellAccessoryNone;
+                cell.textLabel.text = @"Default";
+                cell.detailTextLabel.text = @"EPSlideMenuAnimationstyleDefault";
+                cell.accessoryType = (rootMenuController.slideAnimationStyle == EPSlideMenuAnimationstyleDefault) ?
+                UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                 break;
             case EPSlideMenuAnimationstyleParallax:
-                cell.textLabel.text=@"Parallax";
-                cell.detailTextLabel.text=@"EPSlideMenuAnimationstyleParallax";
-                cell.accessoryType=(rootMenuController.slideAnimationStyle== EPSlideMenuAnimationstyleParallax)?
-                        UITableViewCellAccessoryCheckmark:UITableViewCellAccessoryNone;
+                cell.textLabel.text = @"Parallax";
+                cell.detailTextLabel.text = @"EPSlideMenuAnimationstyleParallax";
+                cell.accessoryType = (rootMenuController.slideAnimationStyle == EPSlideMenuAnimationstyleParallax) ?
+                UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                 break;
             case EPSlideMenuAnimationstyleSlide:
-                cell.textLabel.text=@"Slide";
-                cell.detailTextLabel.text=@"EPSlideMenuAnimationstyleSlide";
-                cell.accessoryType=(rootMenuController.slideAnimationStyle==EPSlideMenuAnimationstyleSlide)?
-                        UITableViewCellAccessoryCheckmark:UITableViewCellAccessoryNone;
+                cell.textLabel.text = @"Slide";
+                cell.detailTextLabel.text = @"EPSlideMenuAnimationstyleSlide";
+                cell.accessoryType = (rootMenuController.slideAnimationStyle == EPSlideMenuAnimationstyleSlide) ?
+            UITableViewCellAccessoryCheckmark:UITableViewCellAccessoryNone;
                 break;
             default:
                 break;
@@ -161,22 +156,22 @@
     else if (indexPath.section == 1) {
         switch(indexPath.row){
             case EPSlideMenuSwipeBehaviorEnabled:
-                cell.textLabel.text=@"Enabled";
-                cell.detailTextLabel.text=@"EPSlideMenuSwipeBehaviorEnabled";
-                cell.accessoryType=(rootMenuController.swipeBehavior==EPSlideMenuSwipeBehaviorEnabled)?
-                        UITableViewCellAccessoryCheckmark:UITableViewCellAccessoryNone;
+                cell.textLabel.text = @"Enabled";
+                cell.detailTextLabel.text = @"EPSlideMenuSwipeBehaviorEnabled";
+                cell.accessoryType = (rootMenuController.swipeBehavior == EPSlideMenuSwipeBehaviorEnabled) ?
+                UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                 break;
             case EPSlideMenuSwipeBehaviorDisabled:
-                cell.textLabel.text=@"Disabled";
-                cell.detailTextLabel.text=@"EPSlideMenuSwipeBehaviorDisabled";
-                cell.accessoryType=(rootMenuController.swipeBehavior==EPSlideMenuSwipeBehaviorDisabled)?
-                        UITableViewCellAccessoryCheckmark:UITableViewCellAccessoryNone;
+                cell.textLabel.text = @"Disabled";
+                cell.detailTextLabel.text = @"EPSlideMenuSwipeBehaviorDisabled";
+                cell.accessoryType = (rootMenuController.swipeBehavior==EPSlideMenuSwipeBehaviorDisabled) ?
+                UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                 break;
             case EPSlideMenuSwipeBehaviorCorner:
-                cell.textLabel.text=@"Corner";
-                cell.detailTextLabel.text=@"EPSlideMenuSwipeBehaviorCorner";
-                cell.accessoryType=(rootMenuController.swipeBehavior==EPSlideMenuSwipeBehaviorCorner)?
-                        UITableViewCellAccessoryCheckmark:UITableViewCellAccessoryNone;
+                cell.textLabel.text = @"Corner";
+                cell.detailTextLabel.text = @"EPSlideMenuSwipeBehaviorCorner";
+                cell.accessoryType = (rootMenuController.swipeBehavior == EPSlideMenuSwipeBehaviorCorner) ?
+                UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                 break;
             default:
                 break;
@@ -186,25 +181,26 @@
         cell.textLabel.text = rootMenuController.showShadow ? @"Shown" : @"Hidden";
         cell.detailTextLabel.text = @"show shadow";
         cell.accessoryType = (rootMenuController.showShadow) ?
-                UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+        UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     }
-
+    
     return cell;
 }
 
 #pragma mark UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    EPSlideMenuViewController *rootMenuController= [self rootController];
-    if(indexPath.section==0){
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    EPSlideMenuViewController *rootMenuController = [self rootController];
+    if(indexPath.section == 0){
         switch(indexPath.row){
             case EPSlideMenuAnimationstyleDefault:
-                rootMenuController.slideAnimationStyle=EPSlideMenuAnimationstyleDefault;
+                rootMenuController.slideAnimationStyle = EPSlideMenuAnimationstyleDefault;
                 break;
             case EPSlideMenuAnimationstyleParallax:
-                rootMenuController.slideAnimationStyle= EPSlideMenuAnimationstyleParallax;
+                rootMenuController.slideAnimationStyle = EPSlideMenuAnimationstyleParallax;
                 break;
             case EPSlideMenuAnimationstyleSlide:
-                rootMenuController.slideAnimationStyle=EPSlideMenuAnimationstyleSlide;
+                rootMenuController.slideAnimationStyle = EPSlideMenuAnimationstyleSlide;
                 break;
             default:
                 break;
@@ -213,13 +209,13 @@
     else if (indexPath.section == 1) {
         switch(indexPath.row){
             case EPSlideMenuSwipeBehaviorEnabled:
-                rootMenuController.swipeBehavior=EPSlideMenuSwipeBehaviorEnabled;
+                rootMenuController.swipeBehavior = EPSlideMenuSwipeBehaviorEnabled;
                 break;
             case EPSlideMenuSwipeBehaviorDisabled:
-                rootMenuController.swipeBehavior=EPSlideMenuSwipeBehaviorDisabled;
+                rootMenuController.swipeBehavior = EPSlideMenuSwipeBehaviorDisabled;
                 break;
             case EPSlideMenuSwipeBehaviorCorner:
-                rootMenuController.swipeBehavior=EPSlideMenuSwipeBehaviorCorner;
+                rootMenuController.swipeBehavior = EPSlideMenuSwipeBehaviorCorner;
                 break;
             default:
                 break;

@@ -28,13 +28,14 @@
 
 #import "EPSlideMenuViewController.h"
 
-static CGFloat const kSlideMenuOpenMenuWidthMultiplier =0.8f;
-static CGFloat const kSlideMenuAnimationDuration=0.3f;
-static CGFloat const kSlideMenuParallax=0.15f;
-static CGFloat const kActiveCornerTouchWidthPx =30.0f;
+static CGFloat const kSlideMenuOpenMenuWidthMultiplier = 0.8f;
+static CGFloat const kSlideMenuAnimationDuration = 0.3f;
+static CGFloat const kSlideMenuParallax = 0.15f;
+static CGFloat const kActiveCornerTouchWidthPx = 30.0f;
 
 @implementation UIViewController(EPSlideMenuViewControllerExtentions)
-- (EPSlideMenuViewController*)rootMenuController{
+- (EPSlideMenuViewController*)rootMenuController
+{
     if (self.parentViewController && [self.parentViewController isKindOfClass:[EPSlideMenuViewController class]]) {
         return (EPSlideMenuViewController*)self.parentViewController;
     }
@@ -69,29 +70,32 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
 
 - (instancetype)initWithCenterViewController:(UIViewController *)centerController
                               leftController:(UIViewController *)leftController
-                             rightController:(UIViewController *)rightController {
+                             rightController:(UIViewController *)rightController
+{
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
-        self.centerViewController=centerController;
+        self.centerViewController = centerController;
         self.leftViewController = leftController;
-        self.rightViewController=rightController;
+        self.rightViewController = rightController;
         self.openMenuSlideWidthMultiplier = kSlideMenuOpenMenuWidthMultiplier;
-        self.lastTouchX=-1;
-        self.currentState=EPSlideMenuStateClosed;
-        self.slideAnimationStyle=EPSlideMenuAnimationstyleDefault;
+        self.lastTouchX = -1;
+        self.currentState = EPSlideMenuStateClosed;
+        self.slideAnimationStyle = EPSlideMenuAnimationstyleDefault;
         self.swipeBehavior = EPSlideMenuSwipeBehaviorEnabled;
     }
     return self;
 }
 
 #pragma mark properties
-- (void)setSlideAnimationStyle:(EPSlideMenuAnimationstyle)slideAnimationStyle {
-    _slideAnimationStyle=slideAnimationStyle;
+- (void)setSlideAnimationStyle:(EPSlideMenuAnimationstyle)slideAnimationStyle
+{
+    _slideAnimationStyle = slideAnimationStyle;
     [self updateToMenuState:self.currentState animated:NO];
 }
 
-- (void)setSwipeBehavior:(EPSlideMenuSwipeBehavior)swipeBehavior {
-    _swipeBehavior=swipeBehavior;
+- (void)setSwipeBehavior:(EPSlideMenuSwipeBehavior)swipeBehavior
+{
+    _swipeBehavior = swipeBehavior;
     [self updateToMenuState:self.currentState animated:NO];
 }
 
@@ -100,28 +104,29 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
 #ifdef DEBUG
     NSAssert(self.centerViewController, @"centerViewController should not be nil");
 #endif
-
-    self.view.backgroundColor=[UIColor blackColor];
-
-    self.rightViewConstraintX=[self addViewController:self.rightViewController atIndex:0];
-    self.leftViewConstraintX=[self addViewController:self.leftViewController atIndex:1];
-    self.centerViewConstraintX=[self addViewController:self.centerViewController atIndex:2];
-
+    
+    self.view.backgroundColor = [UIColor blackColor];
+    
+    self.rightViewConstraintX = [self addViewController:self.rightViewController atIndex:0];
+    self.leftViewConstraintX = [self addViewController:self.leftViewController atIndex:1];
+    self.centerViewConstraintX = [self addViewController:self.centerViewController atIndex:2];
+    
     UIPanGestureRecognizer* panner = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
     panner.cancelsTouchesInView = YES;
     panner.delegate = self;
-
+    
     [self.centerViewController.view addGestureRecognizer:panner];
-
-    self.showShadow=YES;
-
+    
+    self.showShadow = YES;
+    
 }
 
-- (void)viewDidLayoutSubviews{
+- (void)viewDidLayoutSubviews
+{
     [super viewDidLayoutSubviews];
     [self.leftViewController.view layoutIfNeeded];
     [self.centerViewController.view layoutIfNeeded];
@@ -131,19 +136,23 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
 
 #pragma mark support
 - (NSLayoutConstraint *)addViewController:(UIViewController *)viewController
-                                  atIndex:(NSUInteger)index {
+                                  atIndex:(NSUInteger)index
+{
     if(!viewController){
         return nil;
     }
+    
     [self addChildViewController:viewController];
-    UIView *view=viewController.view;
-    if(index>=self.view.subviews.count){
+    
+    UIView *view = viewController.view;
+    if(index >= self.view.subviews.count){
         [self.view addSubview:view];
     }
     else{
         [self.view insertSubview:view atIndex:index];
     }
-    view.translatesAutoresizingMaskIntoConstraints=NO;
+    view.translatesAutoresizingMaskIntoConstraints = NO;
+    
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:view
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
@@ -151,6 +160,7 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
                                                           attribute:NSLayoutAttributeTop
                                                          multiplier:1.0
                                                            constant:0.0]];
+    
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:view
                                                           attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual
@@ -158,6 +168,7 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
                                                           attribute:NSLayoutAttributeHeight
                                                          multiplier:1.0
                                                            constant:0.0]];
+    
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:view
                                                           attribute:NSLayoutAttributeWidth
                                                           relatedBy:NSLayoutRelationEqual
@@ -165,117 +176,124 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
                                                           attribute:NSLayoutAttributeWidth
                                                          multiplier:1.0
                                                            constant:0.0]];
-     NSLayoutConstraint *lefConstraint=[NSLayoutConstraint constraintWithItem:view
-                                                 attribute:NSLayoutAttributeLeft
-                                                 relatedBy:NSLayoutRelationEqual
-                                                    toItem:self.view
-                                                 attribute:NSLayoutAttributeLeft
-                                                multiplier:1.0
-                                                  constant:0.0];
+    
+    NSLayoutConstraint *lefConstraint=[NSLayoutConstraint constraintWithItem:view
+                                                                   attribute:NSLayoutAttributeLeft
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.view
+                                                                   attribute:NSLayoutAttributeLeft
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
     [self.view addConstraint:lefConstraint];
-
+    
     [viewController didMoveToParentViewController:self];
     return lefConstraint;
 }
 
 #pragma mark properties
-- (void)setShowShadow:(BOOL)showShadow {
-    _showShadow=showShadow;
-    self.centerViewController.view.layer.shadowPath=showShadow?[[UIBezierPath
-            bezierPathWithRect:self.centerViewController.view.bounds] CGPath]:0;
+- (void)setShowShadow:(BOOL)showShadow
+{
+    _showShadow = showShadow;
+    self.centerViewController.view.layer.shadowPath = showShadow ? [[UIBezierPath
+                                                                     bezierPathWithRect : self.centerViewController.view.bounds] CGPath]:0;
     self.centerViewController.view.layer.shadowOpacity = showShadow?0.5f:0.0f;
 }
 
-- (void)setOpenMenuSlideWidthMultiplier:(CGFloat)openMenuSlideWidthMultiplier {
-    if (openMenuSlideWidthMultiplier >1.f) {
-        openMenuSlideWidthMultiplier =1.f;
+- (void)setOpenMenuSlideWidthMultiplier:(CGFloat)openMenuSlideWidthMultiplier
+{
+    if (openMenuSlideWidthMultiplier > 1.f) {
+        openMenuSlideWidthMultiplier = 1.f;
     }
-    else if (openMenuSlideWidthMultiplier <0.f){
-        openMenuSlideWidthMultiplier =0.f;
+    else if (openMenuSlideWidthMultiplier < 0.f){
+        openMenuSlideWidthMultiplier = 0.f;
     }
     _openMenuSlideWidthMultiplier = openMenuSlideWidthMultiplier;
 }
 
 #pragma mark frame calculations
-- (CGFloat)centerViewConstantForState:(EPSlideMenuState)state{
-    CGFloat constant=self.centerViewConstraintX.constant;
+- (CGFloat)centerViewConstantForState:(EPSlideMenuState)state
+{
+    CGFloat constant = self.centerViewConstraintX.constant;
     switch (state) {
         case EPSlideMenuStateClosed:
-            constant=0;
+            constant = 0;
             break;
         case EPSlideMenuStateLeftOpened:
-            constant=self.view.frame.size.width*self.openMenuSlideWidthMultiplier;
+            constant = self.view.frame.size.width * self.openMenuSlideWidthMultiplier;
             break;
         case EPSlideMenuStateRightOpened:
-            constant=-self.view.frame.size.width*self.openMenuSlideWidthMultiplier;
+            constant = -self.view.frame.size.width * self.openMenuSlideWidthMultiplier;
             break;
     }
     return constant;
 }
 
-- (CGFloat)leftMenuViewConstantForState:(EPSlideMenuState)state{
-    CGFloat constant=0;
+- (CGFloat)leftMenuViewConstantForState:(EPSlideMenuState)state
+{
+    CGFloat constant = 0;
     switch (state) {
         case EPSlideMenuStateClosed:
-            if(self.slideAnimationStyle== EPSlideMenuAnimationstyleParallax){
-                constant=-self.view.frame.size.width*kSlideMenuParallax;
+            if(self.slideAnimationStyle == EPSlideMenuAnimationstyleParallax){
+                constant =- self.view.frame.size.width*kSlideMenuParallax;
             }
-            else if(self.slideAnimationStyle==EPSlideMenuAnimationstyleSlide){
-                constant=-self.view.frame.size.width*self.openMenuSlideWidthMultiplier;
+            else if(self.slideAnimationStyle == EPSlideMenuAnimationstyleSlide){
+                constant =- self.view.frame.size.width * self.openMenuSlideWidthMultiplier;
             }
             break;
         case EPSlideMenuStateLeftOpened:
-            constant=self.view.frame.origin.x;
+            constant = self.view.frame.origin.x;
             break;
         case EPSlideMenuStateRightOpened:
-            constant=-self.view.frame.size.width;
+            constant = -self.view.frame.size.width;
             break;
     }
     return constant;
 }
 
 - (CGFloat)rightMenuViewBoundsForState:(EPSlideMenuState)state{
-    CGFloat constant=0;
+    CGFloat constant = 0;
     switch (state) {
         case EPSlideMenuStateClosed:
-            if(self.slideAnimationStyle== EPSlideMenuAnimationstyleParallax){
-                constant=self.view.frame.size.width*kSlideMenuParallax;
+            if(self.slideAnimationStyle == EPSlideMenuAnimationstyleParallax){
+                constant = self.view.frame.size.width * kSlideMenuParallax;
             }
-            else if(self.slideAnimationStyle==EPSlideMenuAnimationstyleSlide){
-                constant=self.view.frame.size.width*self.openMenuSlideWidthMultiplier;
+            else if(self.slideAnimationStyle == EPSlideMenuAnimationstyleSlide){
+                constant = self.view.frame.size.width * self.openMenuSlideWidthMultiplier;
             }
             break;
         case EPSlideMenuStateLeftOpened:
-            constant=self.view.frame.size.width*self.openMenuSlideWidthMultiplier;
+            constant = self.view.frame.size.width * self.openMenuSlideWidthMultiplier;
             break;
         case EPSlideMenuStateRightOpened:
-            constant=self.view.frame.origin.x;
+            constant = self.view.frame.origin.x;
             break;
     }
     return constant;
 }
 
-- (CGFloat)calculateConstWithShift:(CGFloat)shift startvalue:(CGFloat)startvalue endValue:(CGFloat)endValue {
-    CGFloat newConst=startvalue + (endValue-startvalue)*shift;
+- (CGFloat)calculateConstWithShift:(CGFloat)shift startvalue:(CGFloat)startvalue endValue:(CGFloat)endValue
+{
+    CGFloat newConst = startvalue + (endValue - startvalue) * shift;
     return newConst;
 }
 #pragma mark menu toggle actions
-- (void)updateToMenuState:(EPSlideMenuState)state animated:(BOOL)animated{
+- (void)updateToMenuState:(EPSlideMenuState)state animated:(BOOL)animated
+{
     [self.view layoutIfNeeded];
-    if(!self.rightViewController && state==EPSlideMenuStateRightOpened)
+    if(!self.rightViewController && state == EPSlideMenuStateRightOpened)
         return;
-    if(!self.leftViewController && state==EPSlideMenuStateLeftOpened)
+    if(!self.leftViewController && state == EPSlideMenuStateLeftOpened)
         return;
     if(self.leftViewController){
-        self.leftViewConstraintX.constant= [self leftMenuViewConstantForState:state];
+        self.leftViewConstraintX.constant = [self leftMenuViewConstantForState:state];
     }
     if(self.rightViewController){
-        self.rightViewConstraintX.constant=[self rightMenuViewBoundsForState:state];
+        self.rightViewConstraintX.constant = [self rightMenuViewBoundsForState:state];
     }
     if(self.centerViewController){
-        self.centerViewConstraintX.constant= [self centerViewConstantForState:state];
+        self.centerViewConstraintX.constant = [self centerViewConstantForState:state];
     }
-
+    
     [UIView animateWithDuration:animated ? kSlideMenuAnimationDuration:0.f
                           delay:0.f
                         options:UIViewAnimationOptionCurveEaseOut
@@ -283,81 +301,87 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
                          [self.view layoutIfNeeded];
                      }
                      completion:^(BOOL finished) {
-                         self.currentState=state;
+                         self.currentState = state;
                      }];
 }
 
 
 - (void)toggleLeftMenuAnimated:(BOOL)animated{
-    [self updateToMenuState:(self.currentState==EPSlideMenuStateClosed)?EPSlideMenuStateLeftOpened:EPSlideMenuStateClosed
+    [self updateToMenuState:(self.currentState == EPSlideMenuStateClosed) ? EPSlideMenuStateLeftOpened :  EPSlideMenuStateClosed
                    animated:animated];
 }
 
-- (void)toggleRightMenuAnimated:(BOOL)animated {
-    [self updateToMenuState:(self.currentState==EPSlideMenuStateClosed)?EPSlideMenuStateRightOpened:EPSlideMenuStateClosed
+- (void)toggleRightMenuAnimated:(BOOL)animated
+{
+    [self updateToMenuState:(self.currentState == EPSlideMenuStateClosed) ? EPSlideMenuStateRightOpened :  EPSlideMenuStateClosed
                    animated:animated];
 }
 
-- (void)openLeftMenuAnimated:(BOOL)animated {
+- (void)openLeftMenuAnimated:(BOOL)animated
+{
     [self updateToMenuState:EPSlideMenuStateLeftOpened
                    animated:animated];
 }
 
-- (void)openRightMenuAnimated:(BOOL)animated {
+- (void)openRightMenuAnimated:(BOOL)animated
+{
     [self updateToMenuState:EPSlideMenuStateRightOpened
                    animated:animated];
 }
 
-- (void)closeMenuAnimated:(BOOL)animated {
+- (void)closeMenuAnimated:(BOOL)animated
+{
     [self updateToMenuState:EPSlideMenuStateClosed
                    animated:animated];
 }
 
-- (void)updateFramesAfterMoveLeft:(BOOL)leftMove {
-    CGFloat closedCenterConst= [self centerViewConstantForState:EPSlideMenuStateClosed];
-    CGFloat openedCenterConst= [self centerViewConstantForState:EPSlideMenuStateLeftOpened];
-    BOOL leftEdgeCross =(self.centerViewConstraintX.constant<=closedCenterConst);
-    CGFloat width=openedCenterConst-closedCenterConst;
-    CGFloat shift= ABS(self.centerViewConstraintX.constant-closedCenterConst)/width;
-    if(shift>1.0)
-        shift=1.0;
-
+- (void)updateFramesAfterMoveLeft:(BOOL)leftMove
+{
+    CGFloat closedCenterConst = [self centerViewConstantForState:EPSlideMenuStateClosed];
+    CGFloat openedCenterConst = [self centerViewConstantForState:EPSlideMenuStateLeftOpened];
+    BOOL leftEdgeCross = (self.centerViewConstraintX.constant<=closedCenterConst);
+    CGFloat width = openedCenterConst-closedCenterConst;
+    CGFloat shift = ABS(self.centerViewConstraintX.constant - closedCenterConst) / width;
+    if(shift > 1.0)
+        shift = 1.0;
+    
     if(self.leftViewController){
-        EPSlideMenuState nextState=leftMove?(leftEdgeCross?EPSlideMenuStateRightOpened:EPSlideMenuStateClosed):(leftEdgeCross?EPSlideMenuStateRightOpened:EPSlideMenuStateLeftOpened);
-        EPSlideMenuState prevState=leftMove?(leftEdgeCross?EPSlideMenuStateRightOpened:EPSlideMenuStateLeftOpened):(leftEdgeCross?EPSlideMenuStateRightOpened:EPSlideMenuStateClosed);
-        CGFloat newConst= [self calculateConstWithShift:leftMove?(1-shift):shift
-                                             startvalue:[self leftMenuViewConstantForState:prevState]
-                                               endValue:[self leftMenuViewConstantForState:nextState]];
-        self.leftViewConstraintX.constant=newConst;
+        EPSlideMenuState nextState = leftMove ? (leftEdgeCross ? EPSlideMenuStateRightOpened : EPSlideMenuStateClosed) :  (leftEdgeCross ? EPSlideMenuStateRightOpened : EPSlideMenuStateLeftOpened);
+        EPSlideMenuState prevState = leftMove ? (leftEdgeCross ? EPSlideMenuStateRightOpened : EPSlideMenuStateLeftOpened) : (leftEdgeCross ? EPSlideMenuStateRightOpened : EPSlideMenuStateClosed);
+        CGFloat newConst = [self calculateConstWithShift:leftMove ? (1 - shift) : shift
+                                              startvalue:[self leftMenuViewConstantForState:prevState]
+                                                endValue:[self leftMenuViewConstantForState:nextState]];
+        self.leftViewConstraintX.constant = newConst;
     }
     if(self.rightViewController){
-        EPSlideMenuState nextState=leftMove?(EPSlideMenuStateClosed):EPSlideMenuStateRightOpened;
-        EPSlideMenuState prevState=leftMove?(EPSlideMenuStateRightOpened):EPSlideMenuStateClosed;
-        CGFloat newConst= [self calculateConstWithShift:leftMove?(1-shift):shift
-                                             startvalue:[self rightMenuViewBoundsForState:prevState]
-                                               endValue:[self rightMenuViewBoundsForState:nextState]];
-        self.rightViewConstraintX.constant=newConst;
+        EPSlideMenuState nextState = leftMove ? (EPSlideMenuStateClosed) : EPSlideMenuStateRightOpened;
+        EPSlideMenuState prevState = leftMove ? (EPSlideMenuStateRightOpened) : EPSlideMenuStateClosed;
+        CGFloat newConst = [self calculateConstWithShift : leftMove ? (1 - shift) : shift
+                                               startvalue:[self rightMenuViewBoundsForState:prevState]
+                                                 endValue:[self rightMenuViewBoundsForState:nextState]];
+        self.rightViewConstraintX.constant = newConst;
     }
     [self.view layoutIfNeeded];
 }
 
-- (void)updateStateAfterMovingFinished {
+- (void)updateStateAfterMovingFinished
+{
     if(self.currentState == EPSlideMenuStateLeftOpened){
-        if(self.centerViewConstraintX.constant<=(self.view.frame.size.width * self.openMenuSlideWidthMultiplier))
+        if(self.centerViewConstraintX.constant <= (self.view.frame.size.width * self.openMenuSlideWidthMultiplier))
             [self updateToMenuState:EPSlideMenuStateClosed animated:YES];
         else
             [self updateToMenuState:EPSlideMenuStateLeftOpened animated:YES];
     }
     else if(self.currentState == EPSlideMenuStateRightOpened){
-        if(self.centerViewController.view.frame.origin.x>=(-self.view.frame.size.width * self.openMenuSlideWidthMultiplier))
+        if(self.centerViewController.view.frame.origin.x >= (-self.view.frame.size.width * self.openMenuSlideWidthMultiplier))
             [self updateToMenuState:EPSlideMenuStateClosed animated:YES];
         else
             [self updateToMenuState:EPSlideMenuStateRightOpened animated:YES];
     }
     else{
-        if(self.centerViewController.view.frame.origin.x>=(self.view.frame.size.width *0.1))
+        if(self.centerViewController.view.frame.origin.x >= (self.view.frame.size.width * 0.1))
             [self updateToMenuState:EPSlideMenuStateLeftOpened animated:YES];
-        else if(self.centerViewController.view.frame.origin.x<=(-self.view.frame.size.width *0.1))
+        else if(self.centerViewController.view.frame.origin.x <= (-self.view.frame.size.width * 0.1))
             [self updateToMenuState:EPSlideMenuStateRightOpened animated:YES];
         else
             [self updateToMenuState:EPSlideMenuStateClosed animated:YES];
@@ -365,7 +389,8 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
 }
 
 #pragma mark Orientations
-- (NSUInteger)supportedInterfaceOrientations{
+- (NSUInteger)supportedInterfaceOrientations
+{
     return UIInterfaceOrientationMaskAll;
 }
 
@@ -374,22 +399,23 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
 }
 
 #pragma mark UIGestureRecognizerDelegate
--(void)handleGesture:(UIGestureRecognizer*)gestureRecognizer{
-
-    CGPoint selfTouchPoint= [gestureRecognizer locationInView:self.view];
-    CGFloat centerConst=self.centerViewConstraintX.constant;
-    centerConst+=(selfTouchPoint.x-self.lastTouchX);
-    if(centerConst<0 && !self.rightViewController){
-        centerConst=0;
+-(void)handleGesture:(UIGestureRecognizer*)gestureRecognizer
+{
+    
+    CGPoint selfTouchPoint = [gestureRecognizer locationInView:self.view];
+    CGFloat centerConst = self.centerViewConstraintX.constant;
+    centerConst += (selfTouchPoint.x - self.lastTouchX);
+    if(centerConst < 0 && !self.rightViewController){
+        centerConst = 0;
     }
-    if(centerConst>0 && !self.leftViewController){
-        centerConst=0;
+    if(centerConst > 0 && !self.leftViewController){
+        centerConst = 0;
     }
-    self.centerViewConstraintX.constant=centerConst;
+    self.centerViewConstraintX.constant = centerConst;
     [self.view layoutIfNeeded];
-    [self updateFramesAfterMoveLeft:(self.lastTouchX>selfTouchPoint.x)];
-    self.lastTouchX=selfTouchPoint.x;
-
+    [self updateFramesAfterMoveLeft:(self.lastTouchX > selfTouchPoint.x)];
+    self.lastTouchX = selfTouchPoint.x;
+    
     //finished
     if(gestureRecognizer.state == UIGestureRecognizerStateEnded)
     {
@@ -397,8 +423,9 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
     }
 }
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
-    CGPoint centerViewTouchPoint= [gestureRecognizer locationInView:self.centerViewController.view];
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    CGPoint centerViewTouchPoint = [gestureRecognizer locationInView:self.centerViewController.view];
     switch (self.swipeBehavior){
         case EPSlideMenuSwipeBehaviorEnabled:
             break;
@@ -406,8 +433,8 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
             return NO;
         case EPSlideMenuSwipeBehaviorCorner:
         {
-            if((self.leftViewController && centerViewTouchPoint.x<= kActiveCornerTouchWidthPx) ||
-               (self.rightViewController && centerViewTouchPoint.x>=(self.view.frame.size.width- kActiveCornerTouchWidthPx))){
+            if((self.leftViewController && centerViewTouchPoint.x <= kActiveCornerTouchWidthPx) ||
+               (self.rightViewController && centerViewTouchPoint.x >= (self.view.frame.size.width -  kActiveCornerTouchWidthPx))){
                 break;
             }
             else{
@@ -415,13 +442,14 @@ static CGFloat const kActiveCornerTouchWidthPx =30.0f;
             }
         }
     }
-    CGPoint selfTouchPoint= [gestureRecognizer locationInView:self.view];
-    self.lastTouchX=selfTouchPoint.x;
+    CGPoint selfTouchPoint = [gestureRecognizer locationInView:self.view];
+    self.lastTouchX = selfTouchPoint.x;
     return YES;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
-        shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
     return NO;
 }
 

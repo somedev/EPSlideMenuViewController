@@ -33,15 +33,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    UIViewController* centerVC,*leftVC,*rightVC;
-    UIStoryboard* sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    leftVC=[sb instantiateViewControllerWithIdentifier:@"LeftViewController"];
-    centerVC=[sb instantiateViewControllerWithIdentifier:@"CenterViewController"];
-    rightVC= [sb instantiateViewControllerWithIdentifier:@"RightViewController"];
-    UINavigationController *navigationController= [[UINavigationController alloc] initWithRootViewController:centerVC];
-    EPSlideMenuViewController *controller= [[EPSlideMenuViewController alloc] initWithCenterViewController:navigationController
-                                                                                            leftController:leftVC
-                                                                                           rightController:rightVC];
+    UIViewController* centerVC, *leftVC, *rightVC;
+    UIStoryboard* sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    leftVC = [sb instantiateViewControllerWithIdentifier:@"LeftViewController"];
+    centerVC = [sb instantiateViewControllerWithIdentifier:@"CenterViewController"];
+    rightVC = [sb instantiateViewControllerWithIdentifier:@"RightViewController"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:centerVC];
+    EPSlideMenuViewController *controller = [[EPSlideMenuViewController alloc] initWithCenterViewController:navigationController
+                                                                                             leftController:leftVC
+                                                                                            rightController:rightVC];
     [self.window setRootViewController:controller];
     [self.window makeKeyAndVisible];
     // Override point for customization after application launch.
@@ -56,7 +56,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 

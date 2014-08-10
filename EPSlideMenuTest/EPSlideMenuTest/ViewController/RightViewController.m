@@ -28,8 +28,6 @@
 
 #import "RightViewController.h"
 
-
-@implementation RightViewController {
-
-}
+@implementation RightViewController
+ 
 @end
